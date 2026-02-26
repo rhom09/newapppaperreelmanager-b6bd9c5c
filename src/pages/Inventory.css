@@ -1,0 +1,222 @@
+.inventory-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.filters-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+}
+
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-secondary);
+}
+
+.search-box input {
+  width: 100%;
+  padding: 0.875rem 1rem 0.875rem 2.75rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+}
+
+.search-box input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.filters-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding-left: 0.75rem;
+}
+
+.filter-item select {
+  border: none;
+  background-color: transparent;
+  padding: 0.75rem 1rem 0.75rem 0.5rem;
+}
+
+.filter-item select:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+.inventory-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.inventory-table {
+  min-width: 800px;
+}
+
+.inventory-table th {
+  background-color: rgba(255, 255, 255, 0.02);
+  padding: 1rem 1.5rem;
+}
+
+.inventory-table td {
+  padding: 1rem 1.5rem;
+  vertical-align: middle;
+}
+
+.uvpac-id {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-green { background-color: rgba(46, 160, 67, 0.15); color: var(--status-green); }
+.status-yellow { background-color: rgba(210, 153, 34, 0.15); color: var(--status-yellow); }
+.status-red { background-color: rgba(218, 54, 51, 0.15); color: var(--status-red); }
+
+.meter-bar-bg {
+  width: 100%;
+  height: 4px;
+  background-color: var(--bg-elevated);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.meter-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.row-dimmed {
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.row-dimmed:hover {
+  opacity: 0.8;
+}
+
+.reel-info-summary {
+  background-color: var(--bg-primary);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.reel-info-summary p { margin-bottom: 0.25rem; }
+.reel-info-summary p:last-child { margin-bottom: 0; }
+
+/* Responsive Views */
+.mobile-only { display: none; }
+.desktop-only { display: table; }
+
+@media (max-width: 768px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+  
+  .filters-card {
+    padding: 1rem;
+  }
+  
+  .filters-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-item {
+    width: 100%;
+  }
+  
+  .filter-item select {
+    width: 100%;
+  }
+
+  .mobile-list {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    background-color: var(--bg-primary);
+  }
+
+  .mobile-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+  }
+
+  .mc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .mc-titles {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .mc-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+  }
+
+  .mc-body span { color: var(--text-primary); font-weight: 500; }
+  
+  .mc-meters {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .mc-footer {
+    margin-top: 1rem;
+  }
+}
