@@ -1,42 +1,73 @@
-@import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-@theme inline {
-  --color-background: hsl(210 25% 97%);
-  --color-foreground: hsl(215 25% 15%);
-  --color-primary: hsl(210 80% 45%);
-  --color-primary-foreground: hsl(0 0% 100%);
-  --color-secondary: hsl(160 60% 42%);
-  --color-secondary-foreground: hsl(0 0% 100%);
-  --color-muted: hsl(210 15% 92%);
-  --color-muted-foreground: hsl(215 15% 50%);
-  --color-accent: hsl(210 60% 95%);
-  --color-card: hsl(0 0% 100%);
-  --color-card-foreground: hsl(215 25% 15%);
-  --color-border: hsl(210 15% 88%);
-  --color-destructive: hsl(0 65% 55%);
-  --color-warning: hsl(38 92% 50%);
-  --color-underweight: hsl(210 80% 55%);
-  --color-normal: hsl(145 60% 42%);
-  --color-overweight: hsl(38 92% 50%);
-  --color-obese1: hsl(20 85% 55%);
-  --color-obese2: hsl(0 70% 50%);
-  --color-obese3: hsl(0 80% 40%);
-  --font-sans: 'Plus Jakarta Sans', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --radius-lg: 16px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
+:root {
+  --bg-primary: #111318;
+  --bg-surface: #1C2028;
+  --bg-elevated: #252A34;
+  --accent: #FF8C00;
+  --accent-hover: #E07800;
+  --text-primary: #F1F3F5;
+  --text-secondary: #8B949E;
+  --status-green: #2EA043;
+  --status-yellow: #D29922;
+  --status-red: #DA3633;
+  --border: #30363D;
+  --radius: 12px;
+  --font: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  font-family: var(--font-body);
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  font-family: var(--font);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-sans);
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+button {
+  font-family: var(--font);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary); 
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border); 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary); 
+}
+
+/* Utilities */
+.card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
 }
