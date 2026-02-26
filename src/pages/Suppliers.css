@@ -54,30 +54,6 @@
   gap: 0.5rem;
 }
 
-.icon-btn {
-  background: transparent;
-  border: none;
-  border-radius: 4px;
-  padding: 0.25rem;
-  color: var(--text-secondary);
-  transition: all 0.2s;
-}
-
-.icon-btn:hover {
-  color: var(--text-primary);
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.delete-btn:hover {
-  color: var(--status-red);
-  background-color: rgba(218, 54, 51, 0.1);
-}
-
-.edit-btn:hover {
-  color: var(--accent);
-  background-color: rgba(255, 140, 0, 0.1);
-}
-
 .supplier-details {
   display: flex;
   flex-direction: column;
@@ -307,4 +283,6 @@
   max-width: 400px;
 }
 
-.mt-4 { margin-top: 1rem; }
+.mt-4 {
+  margin-top: 1rem;
+}

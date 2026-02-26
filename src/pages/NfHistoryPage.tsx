@@ -91,7 +91,7 @@ export function NfHistoryPage() {
                                     <td>
                                         <div className="table-actions">
                                             <button
-                                                className="icon-btn edit"
+                                                className="icon-btn edit-btn"
                                                 title="Editar"
                                                 onClick={() => setEditingNf(nf)}
                                             >
@@ -99,13 +99,13 @@ export function NfHistoryPage() {
                                             </button>
                                             <Link
                                                 to={`/estoque?search=${nf.number}`}
-                                                className="icon-btn view"
+                                                className="icon-btn view-btn"
                                                 title="Ver Bobinas"
                                             >
                                                 <Package size={18} />
                                             </Link>
                                             <button
-                                                className="icon-btn delete"
+                                                className="icon-btn delete-btn"
                                                 title="Excluir NF"
                                                 onClick={() => handleDeleteNf(nf)}
                                             >
@@ -130,10 +130,10 @@ export function NfHistoryPage() {
                                         <span>NF {nf.number}</span>
                                     </div>
                                     <div className="card-actions">
-                                        <button onClick={() => setEditingNf(nf)} className="icon-btn">
+                                        <button onClick={() => setEditingNf(nf)} className="icon-btn edit-btn">
                                             <Edit2 size={18} />
                                         </button>
-                                        <button onClick={() => handleDeleteNf(nf)} className="icon-btn delete">
+                                        <button onClick={() => handleDeleteNf(nf)} className="icon-btn delete-btn">
                                             <Trash2 size={18} />
                                         </button>
                                     </div>

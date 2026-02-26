@@ -43,7 +43,12 @@ button {
   background: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-primary);
   font-weight: 600;
 }
@@ -53,15 +58,18 @@ h1, h2, h3, h4, h5, h6 {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: var(--bg-primary); 
+  background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--border); 
+  background: var(--border);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary); 
+  background: var(--text-secondary);
 }
 
 /* Utilities */
@@ -70,4 +78,52 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.5rem;
+}
+
+/* Global Icon Button Styles */
+.icon-btn {
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.icon-btn:active {
+  transform: translateY(0);
+}
+
+.delete-btn:hover,
+.delete:hover {
+  color: var(--status-red) !important;
+  background-color: rgba(218, 54, 51, 0.1) !important;
+}
+
+.edit-btn:hover {
+  color: var(--accent) !important;
+  background-color: rgba(255, 140, 0, 0.1) !important;
+}
+
+.view-btn:hover,
+.view:hover {
+  color: var(--status-green) !important;
+  background-color: rgba(46, 160, 67, 0.1) !important;
+}
+
+/* Common Modal Action Styles */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
 }
