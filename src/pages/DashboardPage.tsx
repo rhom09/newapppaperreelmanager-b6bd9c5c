@@ -1,16 +1,47 @@
+import { useState, useMemo } from 'react';
 import { useAppData } from '../hooks/useAppData';
-import { Package, CheckCircle2, Ruler, Users } from 'lucide-react';
+import { Package, CheckCircle2, Ruler, Users, HelpCircle } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import './Dashboard.css';
 
 export function DashboardPage() {
   const { data } = useAppData();
 
-  const totalReels = data.reels.length;
-  const availableReels = data.reels.filter(r => r.status === 'disponivel').length;
-  
+  const [statusFilter, setStatusFilter] = useState('todos');
+  const [supplierFilter, setSupplierFilter] = useState('todos');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [nfFilter, setNfFilter] = useState('');
+
+  const filteredNFs = useMemo(() => {
+    return data.notasFiscais.filter(nf => {
+      const matchNf = nfFilter === '' || nf.number.toLowerCase().includes(nfFilter.toLowerCase());
+      const matchSupplier = supplierFilter === 'todos' || nf.supplierId === supplierFilter;
+
+      const nfDateObj = new Date(nf.createdAt);
+      const nfDate = nfDateObj.toISOString().split('T')[0];
+      const matchStart = startDate === '' || nfDate >= startDate;
+      const matchEnd = endDate === '' || nfDate <= endDate;
+
+      return matchNf && matchSupplier && matchStart && matchEnd;
+    });
+  }, [data.notasFiscais, nfFilter, supplierFilter, startDate, endDate]);
+
+  const filteredReels = useMemo(() => {
+    const nfIds = new Set(filteredNFs.map(nf => nf.id));
+    return data.reels.filter(reel => {
+      const matchStatus = statusFilter === 'todos' || reel.status === statusFilter;
+      const matchSupplier = supplierFilter === 'todos' || reel.supplierId === supplierFilter;
+      const matchNf = nfIds.has(reel.nfId);
+      return matchStatus && matchSupplier && matchNf;
+    });
+  }, [data.reels, statusFilter, supplierFilter, filteredNFs]);
+
+  const totalReels = filteredReels.length;
+  const availableReels = filteredReels.filter(r => r.status === 'disponivel').length;
+
   // Total meters currently in stock (available + remaining from in use)
-  const totalMeters = data.reels
+  const totalMeters = filteredReels
     .filter(r => r.status !== 'esgotado')
     .reduce((acc, curr) => acc + curr.remainingMeters, 0);
 
@@ -18,7 +49,7 @@ export function DashboardPage() {
 
   // Chart data: meters per supplier
   const supplierStock = data.suppliers.map(sup => {
-    const meters = data.reels
+    const meters = filteredReels
       .filter(r => r.supplierId === sup.id && r.status !== 'esgotado')
       .reduce((acc, curr) => acc + curr.remainingMeters, 0);
     return { name: sup.name, m: meters };
@@ -26,21 +57,76 @@ export function DashboardPage() {
     .sort((a, b) => b.m - a.m);
 
   // Last entries (NFs)
-  const lastEntries = [...data.notasFiscais]
+  const lastEntries = [...filteredNFs]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 10);
 
   return (
     <div className="dashboard-container">
-      <header className="page-header">
-        <h1>Dashboard</h1>
-        <p className="subtitle">Visão geral do estoque de bobinas UVPack</p>
+      <header className="page-header dashboard-header">
+        <div className="header-title-section">
+          <h1>Dashboard</h1>
+          <p className="subtitle">Visão geral do estoque de bobinas UVPack</p>
+        </div>
+
+        <div className="dashboard-filters">
+          <div className="filter-select-wrapper">
+            <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
+              <option value="todos">Todos os Status</option>
+              <option value="disponivel">Disponível</option>
+              <option value="em_uso">Em Uso</option>
+              <option value="esgotado">Esgotado</option>
+            </select>
+          </div>
+
+          <div className="filter-select-wrapper">
+            <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value)}>
+              <option value="todos">Todos os Fornecedores</option>
+              {data.suppliers.map(sup => (
+                <option key={sup.id} value={sup.id}>{sup.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="filter-date-group">
+            <div className="date-input-wrapper">
+              <input
+                type="date"
+                value={startDate}
+                onChange={e => setStartDate(e.target.value)}
+                placeholder="De"
+              />
+            </div>
+            <div className="date-input-wrapper">
+              <input
+                type="date"
+                value={endDate}
+                onChange={e => setEndDate(e.target.value)}
+                placeholder="Até"
+              />
+            </div>
+          </div>
+
+          <div className="filter-nf-wrapper">
+            <input
+              type="text"
+              value={nfFilter}
+              onChange={e => setNfFilter(e.target.value)}
+              placeholder="Nota Fiscal"
+            />
+          </div>
+        </div>
       </header>
 
       <div className="kpi-grid">
         <KPICard title="Total de Bobinas" value={totalReels} icon={<Package />} />
         <KPICard title="Bobinas Disponíveis" value={availableReels} icon={<CheckCircle2 />} color="var(--status-green)" />
-        <KPICard title="Metragem Estimada" value={`${totalMeters.toLocaleString('pt-BR')} m`} icon={<Ruler />} />
+        <KPICard
+          title="Metragem Estimada em Estoque"
+          value={`${totalMeters.toLocaleString('pt-BR')} m`}
+          icon={<Ruler />}
+          tooltip="Quantidade de metragem somada das bobinas disponíveis e em uso (estoque restante)."
+        />
         <KPICard title="Fornecedores" value={activeSuppliers} icon={<Users />} />
       </div>
 
@@ -53,7 +139,7 @@ export function DashboardPage() {
                 <BarChart data={supplierStock} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                   <XAxis type="number" stroke="var(--text-secondary)" />
                   <YAxis dataKey="name" type="category" width={100} stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)' }} />
-                  <Tooltip 
+                  <Tooltip
                     contentStyle={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}
                     itemStyle={{ color: 'var(--accent)' }}
                     formatter={(value: number | undefined) => [`${(value || 0).toLocaleString('pt-BR')} m`, 'Metragem']}
@@ -108,14 +194,34 @@ export function DashboardPage() {
   );
 }
 
-function KPICard({ title, value, icon, color = 'var(--accent)' }: { title: string; value: string | number; icon: React.ReactNode; color?: string }) {
+function KPICard({
+  title,
+  value,
+  icon,
+  color = 'var(--accent)',
+  tooltip
+}: {
+  title: string;
+  value: string | number;
+  icon: React.ReactNode;
+  color?: string;
+  tooltip?: string;
+}) {
   return (
     <div className="kpi-card card">
       <div className="kpi-icon" style={{ backgroundColor: `${color}20`, color }}>
         {icon}
       </div>
       <div className="kpi-info">
-        <h4>{title}</h4>
+        <div className="kpi-title-row">
+          <h4>{title}</h4>
+          {tooltip && (
+            <div className="tooltip-container">
+              <HelpCircle size={14} className="help-icon" />
+              <div className="tooltip-text">{tooltip}</div>
+            </div>
+          )}
+        </div>
         <span className="kpi-value">{value}</span>
       </div>
     </div>

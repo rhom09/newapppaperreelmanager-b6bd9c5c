@@ -283,6 +283,24 @@
   }
 
   .mc-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
     margin-top: 1rem;
+  }
+
+  .mc-footer .btn {
+    flex: 1 1 calc(50% - 0.25rem);
+    /* Two buttons per row, accounting for gap */
+    min-width: 120px;
+    /* Prevent them from getting too squished */
+    justify-content: center;
+  }
+}
+
+/* Fix for long search placeholder on very small screens */
+@media (max-width: 480px) {
+  .search-box input::placeholder {
+    font-size: 0.85rem;
   }
 }

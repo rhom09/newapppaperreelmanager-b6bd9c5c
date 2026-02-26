@@ -56,14 +56,17 @@
 
 /* Modal Styles */
 .modal-content {
-    padding: 2.5rem !important; /* Increase general padding */
+    padding: 2.5rem !important;
+    /* Increase general padding */
 }
 
 .modal-footer {
     display: flex;
     justify-content: flex-end;
-    gap: 1.5rem; /* Increase gap between buttons */
-    margin-top: 3rem; /* More space from form */
+    gap: 1.5rem;
+    /* Increase gap between buttons */
+    margin-top: 3rem;
+    /* More space from form */
     padding-bottom: 0.5rem;
 }
 
@@ -102,12 +105,111 @@
         flex-direction: column;
         align-items: flex-start;
     }
-    
+
     .nf-history-actions {
         width: 100%;
     }
-    
+
     .search-container {
         max-width: none;
     }
+}
+
+/* Mobile Card Base Styles */
+.mobile-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* Mobile Card Fixes for NfHistory */
+.nf-history-page .mobile-card .card-header {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--border);
+    margin-bottom: 1rem;
+    width: 100% !important;
+    gap: 0.5rem;
+}
+
+.nf-history-page .mobile-card .card-title {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.nf-history-page .mobile-card .card-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0.25rem !important;
+    flex-shrink: 0;
+}
+
+.nf-history-page .mobile-card .card-actions .icon-btn {
+    padding: 0.6rem !important;
+}
+
+.nf-history-page .mobile-card .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nf-history-page .mobile-card .info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nf-history-page .mobile-card .card-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.nf-history-page .mobile-card .stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nf-history-page .mobile-card .stat label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+}
+
+.nf-history-page .mobile-card .stat span {
+    font-weight: 500;
+}
+
+.nf-history-page .mobile-card .card-footer {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.nf-history-page .mobile-card .btn-secondary.full-width {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem;
 }

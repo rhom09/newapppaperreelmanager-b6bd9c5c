@@ -205,7 +205,7 @@ export function InventoryPage() {
                     </div>
                     <div className="mc-footer">
                       <button className="btn btn-secondary btn-sm" style={{ flex: 1 }} onClick={() => setEditingReel(reel)}>
-                        <Edit2 size={16} /> Status
+                        <Edit2 size={16} /> Editar
                       </button>
                       <button className="btn btn-secondary btn-sm delete-btn" style={{ flex: 1 }} onClick={() => handleDeleteReel(reel)}>
                         <Trash2 size={16} /> Excluir
