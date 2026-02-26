@@ -25,6 +25,38 @@ export const mockData: AppData = {
       email: "pedidos@suzano.com.br",
       prefix: "SUZA",
       createdAt: "2024-03-05T09:15:00.000Z"
+    },
+    {
+      id: "sup-004",
+      name: "Irani Papel e Embalagem S.A.",
+      cnpj: "92.703.111/0001-08",
+      email: "contato@irani.com.br",
+      prefix: "IRAN",
+      createdAt: "2024-03-20T11:00:00.000Z"
+    },
+    {
+      id: "sup-005",
+      name: "Golden Distribuidora",
+      cnpj: "61.344.020/0001-02",
+      email: "vendas@goldendistribuidora.com.br",
+      prefix: "GOLD",
+      createdAt: "2024-04-01T15:00:00.000Z"
+    },
+    {
+      id: "sup-006",
+      name: "Fibrap Distribuidora",
+      cnpj: "01.234.567/0001-88",
+      email: "comercial@fibrap.com.br",
+      prefix: "FIBR",
+      createdAt: "2024-04-05T10:30:00.000Z"
+    },
+    {
+      id: "sup-007",
+      name: "Nobrepap Bobinas",
+      cnpj: "11.222.333/0001-44",
+      email: "atendimento@nobrepap.com.br",
+      prefix: "NOBR",
+      createdAt: "2024-04-10T16:45:00.000Z"
     }
   ],
   notasFiscais: [
@@ -47,6 +79,26 @@ export const mockData: AppData = {
       totalVolumes: 2,
       reelIds: ["reel-004", "reel-005"],
       createdAt: "2024-04-12T13:45:00.000Z"
+    },
+    {
+      id: "nf-1003",
+      number: "001.445.778",
+      supplierId: "sup-004",
+      totalGrossWeight: 4500.0,
+      totalLinearMeters: 20000,
+      totalVolumes: 4,
+      reelIds: ["reel-006", "reel-007", "reel-008", "reel-009"],
+      createdAt: "2024-04-15T09:00:00.000Z"
+    },
+    {
+      id: "nf-1004",
+      number: "002.112.334",
+      supplierId: "sup-005",
+      totalGrossWeight: 1020.0,
+      totalLinearMeters: 5000,
+      totalVolumes: 1,
+      reelIds: ["reel-010"],
+      createdAt: "2024-04-20T14:20:00.000Z"
     }
   ],
   reels: [
@@ -134,7 +186,92 @@ export const mockData: AppData = {
       clientCode: "SYLV-75G-800",
       status: "disponivel",
       createdAt: "2024-04-12T14:05:00.000Z"
+    },
+    {
+      id: "reel-006",
+      uvpacId: 1406,
+      materialCode: "IRAN.B-001",
+      supplierId: "sup-004",
+      nfId: "nf-1003",
+      nfNumber: "001.445.778",
+      width: 1250,
+      linearMeters: 5000,
+      remainingMeters: 5000,
+      grammage: 120,
+      netWeight: 1100,
+      grossWeight: 1120,
+      clientCode: "IRAN-120G-1250",
+      status: "disponivel",
+      createdAt: "2024-04-15T09:10:00.000Z"
+    },
+    {
+      id: "reel-007",
+      uvpacId: 1407,
+      materialCode: "IRAN.B-002",
+      supplierId: "sup-004",
+      nfId: "nf-1003",
+      nfNumber: "001.445.778",
+      width: 1250,
+      linearMeters: 5000,
+      remainingMeters: 5000,
+      grammage: 120,
+      netWeight: 1100,
+      grossWeight: 1120,
+      clientCode: "IRAN-120G-1250",
+      status: "disponivel",
+      createdAt: "2024-04-15T09:15:00.000Z"
+    },
+    {
+      id: "reel-008",
+      uvpacId: 1408,
+      materialCode: "IRAN.B-003",
+      supplierId: "sup-004",
+      nfId: "nf-1003",
+      nfNumber: "001.445.778",
+      width: 1250,
+      linearMeters: 5000,
+      remainingMeters: 3500,
+      grammage: 120,
+      netWeight: 1100,
+      grossWeight: 1120,
+      clientCode: "IRAN-120G-1250",
+      status: "em_uso",
+      createdAt: "2024-04-15T09:20:00.000Z"
+    },
+    {
+      id: "reel-009",
+      uvpacId: 1409,
+      materialCode: "IRAN.B-004",
+      supplierId: "sup-004",
+      nfId: "nf-1003",
+      nfNumber: "001.445.778",
+      width: 1250,
+      linearMeters: 5000,
+      remainingMeters: 5000,
+      grammage: 120,
+      netWeight: 1100,
+      grossWeight: 1120,
+      clientCode: "IRAN-120G-1250",
+      status: "disponivel",
+      createdAt: "2024-04-15T09:25:00.000Z"
+    },
+    {
+      id: "reel-010",
+      uvpacId: 1410,
+      materialCode: "GOLD.K-001",
+      supplierId: "sup-005",
+      nfId: "nf-1004",
+      nfNumber: "002.112.334",
+      width: 900,
+      linearMeters: 5000,
+      remainingMeters: 5000,
+      grammage: 80,
+      netWeight: 1000,
+      grossWeight: 1020,
+      clientCode: "GOLD-80G-900",
+      status: "disponivel",
+      createdAt: "2024-04-20T14:30:00.000Z"
     }
   ],
-  uvpacSequence: 1405
+  uvpacSequence: 1410
 };
