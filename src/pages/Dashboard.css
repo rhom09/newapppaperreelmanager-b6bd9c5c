@@ -37,6 +37,16 @@
   gap: 0.75rem;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
+}
+
+.filter-select-wrapper,
+.filter-date-group,
+.filter-nf-wrapper,
+.filter-shortcuts {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .filter-select-wrapper select,
@@ -51,6 +61,8 @@
   font-family: inherit;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
+  height: 42px;
+  /* Consistent height */
 }
 
 .filter-select-wrapper select {
@@ -59,16 +71,22 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B949E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
-  min-width: 140px;
+  min-width: 160px;
 }
 
 .filter-date-group {
-  display: flex;
   gap: 0.5rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.date-input-wrapper {
+  flex: 1;
 }
 
 .date-input-wrapper input {
-  max-width: 135px;
+  width: 100%;
+  min-width: 130px;
   position: relative;
 }
 
@@ -77,8 +95,13 @@
   cursor: pointer;
 }
 
+.filter-nf-wrapper {
+  flex: 1;
+  min-width: 120px;
+}
+
 .filter-nf-wrapper input {
-  max-width: 120px;
+  width: 100%;
 }
 
 .filter-select-wrapper select:hover,
@@ -105,34 +128,43 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .dashboard-filters {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .filter-date-group {
+    grid-column: span 2;
+  }
 }
 
 @media (max-width: 768px) {
   .dashboard-filters {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
+    grid-template-columns: 1fr;
   }
 
   .filter-select-wrapper,
   .filter-select-wrapper select,
   .filter-nf-wrapper,
-  .filter-nf-wrapper input {
-    width: 100%;
-    max-width: none;
-  }
-
+  .filter-nf-wrapper input,
   .filter-date-group {
     width: 100%;
+    grid-column: span 1;
   }
 
-  .date-input-wrapper {
-    flex: 1;
-  }
-
-  .date-input-wrapper input {
+  /* Filter Shortcuts */
+  .filter-shortcuts {
     width: 100%;
-    max-width: none;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .shortcut-btn {
+    flex: 1;
+    text-align: center;
+    height: 42px;
   }
 }
 
