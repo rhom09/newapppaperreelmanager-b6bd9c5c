@@ -31,48 +31,21 @@
   font-size: 0.95rem;
 }
 
-/* Dashboard Filters - Mobile First & Grid Areas */
+/* Dashboard Filters - Defensive Flexbox Layout */
 .dashboard-filters {
-  display: grid !important;
-  grid-template-areas:
-    "status"
-    "supplier"
-    "dates"
-    "nf"
-    "shortcuts";
-  gap: 1rem !important;
-  width: 100% !important;
-  align-items: center !important;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  width: 100%;
+  align-items: center;
 }
 
-/* Assign Areas */
-.filter-status {
-  grid-area: status;
-}
-
-.filter-supplier {
-  grid-area: supplier;
-}
-
-.filter-date-group {
-  grid-area: dates;
-}
-
-.filter-nf-wrapper {
-  grid-area: nf;
-}
-
-.filter-shortcuts {
-  grid-area: shortcuts;
-}
-
-/* Base Control Styles */
+/* Base Control Styles - Standard 42px height */
 .filter-select-wrapper select,
 .date-input-wrapper input,
 .filter-nf-wrapper input,
 .shortcut-btn {
-  height: 42px !important;
-  width: 100% !important;
+  height: 42px;
   background-color: #1a1d24;
   border: 1.5px solid #2d333b;
   border-radius: 10px;
@@ -82,88 +55,117 @@
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   display: flex !important;
-  align-items: center !important;
+  align-items: center;
 }
 
 /* Specific Select Fixes */
-.filter-select-wrapper select {
-  padding: 0 2.5rem 0 1rem !important;
-  appearance: none !important;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B949E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") !important;
-  background-repeat: no-repeat !important;
-  background-position: right 0.75rem center !important;
+.filter-select-wrapper {
+  flex: 1 1 180px;
+  min-width: 140px;
 }
 
-/* Specific Date Group Fixes */
+.filter-select-wrapper select {
+  width: 100%;
+  padding: 0 2.5rem 0 1rem;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B949E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+
+/* Date Group - Flexible and resistant to clipping */
 .filter-date-group {
-  display: flex !important;
-  gap: 0.5rem !important;
+  display: flex;
+  gap: 0.5rem;
+  flex: 1 1 300px;
+  min-width: 260px;
 }
 
 .date-input-wrapper {
-  flex: 1 !important;
-  min-width: 0 !important;
-  /* Allow shrinking */
+  flex: 1;
+  min-width: 0;
 }
 
 .date-input-wrapper input {
-  padding: 0 1rem !important;
+  width: 100%;
+  padding: 0 0.5rem 0 0.75rem;
+  /* Reduced horizontal padding to prevent clipping */
+  cursor: pointer;
+  color-scheme: dark;
+  /* Force dark calendar icons on supporting browsers */
 }
 
-/* Specific NF Fixes */
+/* iOS Specific Date Fixes */
+.date-input-wrapper input::-webkit-date-and-time-value {
+  text-align: left;
+  min-height: 1.5em;
+}
+
+/* NF Input */
+.filter-nf-wrapper {
+  flex: 1 1 140px;
+  min-width: 120px;
+}
+
 .filter-nf-wrapper input {
-  padding: 0 1rem !important;
+  width: 100%;
+  padding: 0 1rem;
 }
 
-/* Specific Shortcut Fixes */
+/* Shortcuts Container */
 .filter-shortcuts {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) auto !important;
-  gap: 0.5rem !important;
+  display: flex;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  justify-content: flex-end;
 }
 
 .shortcut-btn {
-  padding: 0 !important;
-  justify-content: center !important;
-  font-size: 0.75rem !important;
-  font-weight: 600 !important;
+  padding: 0 0.85rem;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  min-width: 48px;
 }
 
-/* Tablet Layout (768px to 1200px) */
-@media (min-width: 768px) {
-  .dashboard-filters {
-    grid-template-areas:
-      "status supplier"
-      "dates dates"
-      "nf shortcuts";
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* Desktop Layout (> 1200px) */
-@media (min-width: 1201px) {
-  .dashboard-filters {
-    grid-template-areas: "status supplier dates nf shortcuts";
-    grid-template-columns: 180px 220px 280px 140px minmax(200px, 1fr) !important;
-    white-space: nowrap !important;
-  }
-
-  .filter-shortcuts {
-    display: flex !important;
-    justify-content: flex-end !important;
-  }
-
-  .shortcut-btn {
-    width: auto !important;
-    padding: 0 0.75rem !important;
-  }
-}
-
-/* Header Responsiveness */
+/* Tablet & Mobile Breakpoints */
 @media (max-width: 1200px) {
   .page-header.dashboard-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .dashboard-filters {
+    gap: 1rem;
+  }
+
+  .filter-shortcuts {
+    width: 100%;
+    justify-content: flex-start;
+    order: 5;
+    /* Keep shortcuts at bottom */
+  }
+}
+
+@media (max-width: 768px) {
+
+  .filter-select-wrapper,
+  .filter-date-group,
+  .filter-nf-wrapper {
+    flex: 1 1 100%;
+  }
+
+  .filter-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
+    gap: 0.5rem;
+  }
+
+  .shortcut-btn {
+    width: 100%;
+    height: 42px;
   }
 }
 
@@ -185,13 +187,13 @@
 }
 
 .shortcut-btn.clear-btn {
-  color: var(--status-red) !important;
-  border-color: rgba(239, 68, 68, 0.2) !important;
+  color: var(--status-red);
+  border-color: rgba(239, 68, 68, 0.2);
 }
 
 .shortcut-btn.clear-btn:hover {
-  background-color: rgba(239, 68, 68, 0.1) !important;
-  border-color: var(--status-red) !important;
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--status-red);
 }
 
 /* KPIs */
