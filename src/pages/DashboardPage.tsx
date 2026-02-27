@@ -84,7 +84,7 @@ export function DashboardPage() {
         </div>
 
         <div className="dashboard-filters">
-          <div className="filter-select-wrapper">
+          <div className="filter-select-wrapper filter-status">
             <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)}>
               <option value="todos">Todos os Status</option>
               <option value="disponivel">Disponível</option>
@@ -93,7 +93,7 @@ export function DashboardPage() {
             </select>
           </div>
 
-          <div className="filter-select-wrapper">
+          <div className="filter-select-wrapper filter-supplier">
             <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value)}>
               <option value="todos">Todos os Fornecedores</option>
               {data.suppliers.map(sup => (
