@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# AI context and logs
+.agent/
+
+# TestSprite
+testsprite_tests/tmp/
+testsprite_tests/*.json
+testsprite_tests/*.html
+.testsprite/

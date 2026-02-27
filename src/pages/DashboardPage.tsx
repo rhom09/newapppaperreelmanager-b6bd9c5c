@@ -13,6 +13,20 @@ export function DashboardPage() {
   const [endDate, setEndDate] = useState('');
   const [nfFilter, setNfFilter] = useState('');
 
+  const setDateRange = (days: number | 'month') => {
+    const end = new Date();
+    let start = new Date();
+
+    if (days === 'month') {
+      start = new Date(end.getFullYear(), end.getMonth(), 1);
+    } else {
+      start.setDate(end.getDate() - days);
+    }
+
+    setStartDate(start.toISOString().split('T')[0]);
+    setEndDate(end.toISOString().split('T')[0]);
+  };
+
   const filteredNFs = useMemo(() => {
     return data.notasFiscais.filter(nf => {
       const matchNf = nfFilter === '' || nf.number.toLowerCase().includes(nfFilter.toLowerCase());
@@ -114,6 +128,21 @@ export function DashboardPage() {
               onChange={e => setNfFilter(e.target.value)}
               placeholder="Nota Fiscal"
             />
+          </div>
+
+          <div className="filter-shortcuts">
+            <button className="shortcut-btn" onClick={() => setDateRange(7)}>7d</button>
+            <button className="shortcut-btn" onClick={() => setDateRange(30)}>30d</button>
+            <button className="shortcut-btn" onClick={() => setDateRange('month')}>Mês</button>
+            {(startDate || endDate || statusFilter !== 'todos' || supplierFilter !== 'todos' || nfFilter) && (
+              <button className="shortcut-btn clear-btn" onClick={() => {
+                setStartDate('');
+                setEndDate('');
+                setStatusFilter('todos');
+                setSupplierFilter('todos');
+                setNfFilter('');
+              }}>Limpar</button>
+            )}
           </div>
         </div>
       </header>

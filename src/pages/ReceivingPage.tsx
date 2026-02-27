@@ -20,6 +20,7 @@ export function ReceivingPage() {
 
   // Step 2 State
   const [reelsInput, setReelsInput] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   // Derived state for validation
   const supplier = data.suppliers.find(s => s.id === supplierId);
@@ -29,7 +30,20 @@ export function ReceivingPage() {
 
   const handleNextStep = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!supplierId || !nfNumber || Number(totalVolumes) <= 0) return;
+    if (!supplierId) {
+      setError('Selecione um fornecedor para continuar.');
+      return;
+    }
+    if (!nfNumber) {
+      setError('Informe o número da Nota Fiscal.');
+      return;
+    }
+    if (Number(totalVolumes) <= 0) {
+      setError('A quantidade de volumes deve ser maior que zero.');
+      return;
+    }
+
+    setError(null);
 
     // Initialize reels based on volumes
     const initialReels = Array.from({ length: Number(totalVolumes) }).map((_, idx) => ({
@@ -123,7 +137,16 @@ export function ReceivingPage() {
           <form onSubmit={handleNextStep} className="nf-form grid-form">
             <div className="form-group">
               <label>Fornecedor (Origem) *</label>
-              <select required value={supplierId} onChange={e => setSupplierId(e.target.value)}>
+              <select
+                id="receiving-supplier"
+                required
+                value={supplierId}
+                onChange={e => {
+                  setSupplierId(e.target.value);
+                  if (error) setError(null);
+                }}
+                className={error && !supplierId ? 'input-error' : ''}
+              >
                 <option value="" disabled>Selecione um fornecedor</option>
                 {data.suppliers.map(s => (
                   <option key={s.id} value={s.id}>{s.name} ({s.prefix})</option>
@@ -133,7 +156,18 @@ export function ReceivingPage() {
 
             <div className="form-group">
               <label>Número da NF *</label>
-              <input type="text" required value={nfNumber} onChange={e => setNfNumber(e.target.value)} placeholder="000.000.000" />
+              <input
+                id="receiving-nf-number"
+                type="text"
+                required
+                value={nfNumber}
+                onChange={e => {
+                  setNfNumber(e.target.value);
+                  if (error) setError(null);
+                }}
+                className={error && !nfNumber ? 'input-error' : ''}
+                placeholder="000.000.000"
+              />
             </div>
 
             <div className="form-group half-width">
@@ -151,8 +185,10 @@ export function ReceivingPage() {
               <input type="number" min="1" max="100" required value={totalVolumes} onChange={e => setTotalVolumes(e.target.value)} />
             </div>
 
+            {error && <p className="error-message full-width" style={{ textAlign: 'center' }}>{error}</p>}
+
             <div className="form-actions full-width">
-              <button type="submit" className="btn btn-primary">
+              <button id="btn-continue-receiving" type="submit" className="btn btn-primary">
                 Continuar <ArrowRight size={18} />
               </button>
             </div>

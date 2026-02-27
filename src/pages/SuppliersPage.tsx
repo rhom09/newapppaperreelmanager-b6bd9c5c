@@ -139,11 +139,20 @@ function SupplierModal({
   const [email, setEmail] = useState(supplier?.email || '');
   const [prefix, setPrefix] = useState(supplier?.prefix || '');
   const [autoPrefix, setAutoPrefix] = useState(!supplier?.prefix);
+  const [error, setError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // CNPJ basic validation (must have 14 digits)
+    if (cnpj.length !== 14) {
+      setError('CNPJ deve conter 14 dígitos.');
+      return;
+    }
+
+    setError(null);
     const finalPrefix = autoPrefix && !prefix ? generatePrefixFromName(name) : prefix;
     onSave({ name, cnpj, email, prefix: finalPrefix });
   };
@@ -178,13 +187,19 @@ function SupplierModal({
           <div className="form-group">
             <label>CNPJ *</label>
             <input
+              id="supplier-cnpj"
               type="text"
               required
               value={formatCNPJ(cnpj)}
-              onChange={e => setCnpj(e.target.value.replace(/\D/g, ''))}
+              onChange={e => {
+                setCnpj(e.target.value.replace(/\D/g, ''));
+                if (error) setError(null);
+              }}
+              className={error ? 'input-error' : ''}
               maxLength={18}
               placeholder="00.000.000/0000-00"
             />
+            {error && <span className="error-message">{error}</span>}
           </div>
 
           <div className="form-group">

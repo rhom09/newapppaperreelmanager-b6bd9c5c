@@ -286,3 +286,14 @@
 .mt-4 {
   margin-top: 1rem;
 }
+
+.input-error {
+  border-color: #ef4444 !important;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+}
