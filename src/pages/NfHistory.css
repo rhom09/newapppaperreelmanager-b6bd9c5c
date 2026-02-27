@@ -113,6 +113,27 @@
     .search-container {
         max-width: none;
     }
+
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
+        flex-direction: column;
+    }
+}
+
+/* Visibility Utilities for Desktop */
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+
+    .desktop-only {
+        display: table !important;
+        /* Matches <table> element on line 68 */
+    }
 }
 
 /* Mobile Card Base Styles */

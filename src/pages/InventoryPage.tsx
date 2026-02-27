@@ -39,7 +39,7 @@ export function InventoryPage() {
       }
 
       return true;
-    }).sort((a, b) => b.uvpacId - a.uvpacId);
+    }).sort((a, b) => a.uvpacId - b.uvpacId);
   }, [data.reels, statusFilter, supplierFilter, searchTerm]);
 
   const getStatusBadge = (status: ReelStatus) => {
