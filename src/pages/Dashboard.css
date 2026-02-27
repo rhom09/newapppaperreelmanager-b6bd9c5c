@@ -33,11 +33,11 @@
 
 /* Filters */
 .dashboard-filters {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.75rem;
-  align-items: center;
-  flex-wrap: wrap;
   width: 100%;
+  align-items: center;
 }
 
 .filter-select-wrapper,
@@ -46,7 +46,14 @@
 .filter-shortcuts {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  width: 100%;
+}
+
+.filter-date-group {
+  grid-column: span 2;
+  gap: 0.5rem;
+  display: flex;
+  width: 100%;
 }
 
 .filter-select-wrapper select,
@@ -56,13 +63,13 @@
   border: 1.5px solid #2d333b;
   border-radius: 10px;
   color: var(--text-primary);
-  padding: 0.625rem 1rem;
+  padding: 0 1rem;
   font-size: 0.875rem;
   font-family: inherit;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   height: 42px;
-  /* Consistent height */
+  width: 100%;
 }
 
 .filter-select-wrapper select {
@@ -71,13 +78,6 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B949E' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
-  min-width: 160px;
-}
-
-.filter-date-group {
-  gap: 0.5rem;
-  flex: 1;
-  min-width: 280px;
 }
 
 .date-input-wrapper {
@@ -85,8 +85,6 @@
 }
 
 .date-input-wrapper input {
-  width: 100%;
-  min-width: 130px;
   position: relative;
 }
 
@@ -96,12 +94,7 @@
 }
 
 .filter-nf-wrapper {
-  flex: 1;
-  min-width: 120px;
-}
-
-.filter-nf-wrapper input {
-  width: 100%;
+  grid-column: span 1;
 }
 
 .filter-select-wrapper select:hover,
@@ -123,6 +116,21 @@
   border-color: var(--accent);
 }
 
+@media (min-width: 1201px) {
+  .dashboard-filters {
+    grid-template-columns: 200px 200px 300px 180px 1fr;
+    grid-template-rows: auto;
+  }
+
+  .filter-date-group {
+    grid-column: span 1;
+  }
+
+  .filter-shortcuts {
+    justify-content: flex-end;
+  }
+}
+
 @media (max-width: 1200px) {
   .page-header.dashboard-header {
     flex-direction: column;
@@ -130,13 +138,21 @@
   }
 
   .dashboard-filters {
-    display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 100%;
+    gap: 1rem;
   }
 
   .filter-date-group {
     grid-column: span 2;
+  }
+
+  .filter-nf-wrapper {
+    grid-column: span 1;
+  }
+
+  .filter-shortcuts {
+    grid-column: span 1;
+    justify-content: flex-end;
   }
 }
 
@@ -145,36 +161,30 @@
     grid-template-columns: 1fr;
   }
 
-  .filter-select-wrapper,
-  .filter-select-wrapper select,
+  .filter-date-group,
   .filter-nf-wrapper,
-  .filter-nf-wrapper input,
-  .filter-date-group {
-    width: 100%;
+  .filter-shortcuts {
     grid-column: span 1;
   }
 
-  /* Filter Shortcuts */
   .filter-shortcuts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) auto;
     width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .shortcut-btn {
-    flex: 1;
-    text-align: center;
-    height: 42px;
+    width: 100%;
+    height: 42px !important;
+    padding: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
-/* Filter Shortcuts */
-.filter-shortcuts {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
+/* Filter Shortcuts Base Styles */
 .shortcut-btn {
   background-color: #1a1d24;
   border: 1.5px solid #2d333b;
@@ -185,6 +195,11 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
+  height: 32px;
+  /* Base height for desktop if needed, overridden in filters */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .shortcut-btn:hover {
@@ -201,18 +216,6 @@
 .shortcut-btn.clear-btn:hover {
   background-color: rgba(239, 68, 68, 0.1);
   border-color: var(--status-red);
-}
-
-@media (max-width: 768px) {
-  .filter-shortcuts {
-    width: 100%;
-    justify-content: flex-start;
-  }
-
-  .shortcut-btn {
-    flex: 1;
-    text-align: center;
-  }
 }
 
 /* KPIs */
