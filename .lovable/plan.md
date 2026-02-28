@@ -1,25 +1,49 @@
 
 
-## Correção de compatibilidade iOS Chrome — Dashboard.css
+## Correção de filtros de data iOS Chrome — Dashboard
 
-Três alterações cirúrgicas no arquivo `src/pages/Dashboard.css`, sem tocar em nenhum outro arquivo.
+Duas correções cirúrgicas em dois arquivos para resolver sobreposição e falta de labels nos inputs de data no iOS Chrome.
 
-### Correção 1 — Remover `display: flex !important` e `align-items: center`
-No bloco que estiliza `.filter-select-wrapper select, .date-input-wrapper input, .filter-nf-wrapper input, .shortcut-btn` (linha ~53), remover as duas propriedades que causam colapso visual no iOS Chrome por serem inválidas em replaced elements.
+### Alterações
 
-### Correção 2 — `font-size: 0.875rem` para `font-size: 16px`
-No mesmo bloco, trocar o font-size para 16px, evitando o auto-zoom do iOS ao focar inputs/selects.
+**1. `src/pages/Dashboard.css`** — Bloco `.date-input-wrapper` (linhas 83-86)
 
-### Correção 3 — `color-scheme: dark` para `color-scheme: dark light`
-No bloco `.date-input-wrapper input` (linha ~89), adicionar fallback `light` para evitar ícones invisíveis no iOS Chrome.
+Alterar de:
+```css
+.date-input-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+```
+Para:
+```css
+.date-input-wrapper {
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+```
 
-### Resumo técnico
+Adicionar logo abaixo desse bloco o novo estilo:
+```css
+.date-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding-left: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+```
 
-| # | Bloco | De | Para |
-|---|-------|----|------|
-| 1 | seletores compartilhados (~L53) | `display: flex !important; align-items: center;` | *(remover)* |
-| 2 | seletores compartilhados (~L53) | `font-size: 0.875rem;` | `font-size: 16px;` |
-| 3 | `.date-input-wrapper input` (~L89) | `color-scheme: dark;` | `color-scheme: dark light;` |
+**2. `src/pages/DashboardPage.tsx`** — Bloco JSX do `filter-date-group` (linhas 105-122)
 
-Nenhum outro arquivo ou propriedade será alterado.
+Adicionar `<label className="date-label">` antes de cada input e remover os atributos `placeholder`.
+
+### Resultado esperado
+- Inputs de data nao colapsam mais no iOS (min-width: 120px)
+- Labels "De" e "Ate" visiveis acima dos campos em todas as plataformas
+- Nenhuma outra alteracao visual ou funcional
 
