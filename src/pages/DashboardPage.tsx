@@ -104,19 +104,19 @@ export function DashboardPage() {
 
           <div className="filter-date-group">
             <div className="date-input-wrapper">
+              <label className="date-label">De</label>
               <input
                 type="date"
                 value={startDate}
                 onChange={e => setStartDate(e.target.value)}
-                placeholder="De"
               />
             </div>
             <div className="date-input-wrapper">
+              <label className="date-label">Até</label>
               <input
                 type="date"
                 value={endDate}
                 onChange={e => setEndDate(e.target.value)}
-                placeholder="Até"
               />
             </div>
           </div>
