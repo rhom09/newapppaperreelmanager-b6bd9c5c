@@ -1,49 +1,51 @@
 
+Objetivo: corrigir o colapso/sobreposição dos filtros de data no iOS Chrome alterando somente `src/pages/Dashboard.css` e apenas os 3 blocos indicados.
 
-## Correção de filtros de data iOS Chrome — Dashboard
-
-Duas correções cirúrgicas em dois arquivos para resolver sobreposição e falta de labels nos inputs de data no iOS Chrome.
-
-### Alterações
-
-**1. `src/pages/Dashboard.css`** — Bloco `.date-input-wrapper` (linhas 83-86)
-
-Alterar de:
+1) Substituir completamente o bloco `.filter-date-group` pelo conteúdo exato:
 ```css
-.date-input-wrapper {
-  flex: 1;
-  min-width: 0;
+.filter-date-group {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex: 1 1 300px;
+  min-width: 260px;
+  width: 100%;
 }
 ```
-Para:
+
+2) Substituir completamente o bloco `.date-input-wrapper` pelo conteúdo exato:
 ```css
 .date-input-wrapper {
-  flex: 1;
+  flex: 1 1 50%;
   min-width: 120px;
+  max-width: 50%;
   display: flex;
   flex-direction: column;
   gap: 5px;
 }
 ```
 
-Adicionar logo abaixo desse bloco o novo estilo:
+3) Substituir completamente o bloco `.date-input-wrapper input` pelo conteúdo exato:
 ```css
-.date-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  padding-left: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.date-input-wrapper input {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0 0.5rem 0 0.75rem;
+  cursor: pointer;
+  color-scheme: dark light;
+  display: block;
+  box-sizing: border-box;
 }
 ```
 
-**2. `src/pages/DashboardPage.tsx`** — Bloco JSX do `filter-date-group` (linhas 105-122)
+Escopo e garantias:
+- Não alterar nenhum outro arquivo além de `src/pages/Dashboard.css`.
+- Não alterar cores, bordas, espaçamentos, tipografia ou layout fora dos 3 blocos acima.
+- Não remover nem modificar o bloco `.date-input-wrapper input::-webkit-date-and-time-value`.
+- Manter intactas as demais regras (incluindo media queries e estados hover/focus).
 
-Adicionar `<label className="date-label">` antes de cada input e remover os atributos `placeholder`.
-
-### Resultado esperado
-- Inputs de data nao colapsam mais no iOS (min-width: 120px)
-- Labels "De" e "Ate" visiveis acima dos campos em todas as plataformas
-- Nenhuma outra alteracao visual ou funcional
-
+Resultado esperado:
+- O grupo de datas mantém largura mínima estável.
+- Cada input de data preserva área visível e não colapsa.
+- Fim da sobreposição dos campos no iOS Chrome.
