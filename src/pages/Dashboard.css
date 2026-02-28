@@ -50,12 +50,10 @@
   border: 1.5px solid #2d333b;
   border-radius: 10px;
   color: var(--text-primary);
-  font-size: 0.875rem;
+  font-size: 16px;
   font-family: inherit;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
-  display: flex !important;
-  align-items: center;
 }
 
 /* Specific Select Fixes */
@@ -92,7 +90,7 @@
   padding: 0 0.5rem 0 0.75rem;
   /* Reduced horizontal padding to prevent clipping */
   cursor: pointer;
-  color-scheme: dark;
+  color-scheme: dark light;
   /* Force dark calendar icons on supporting browsers */
 }
 
