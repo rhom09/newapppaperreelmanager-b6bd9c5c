@@ -1,51 +1,30 @@
 
-Objetivo: corrigir o colapso/sobreposição dos filtros de data no iOS Chrome alterando somente `src/pages/Dashboard.css` e apenas os 3 blocos indicados.
 
-1) Substituir completamente o bloco `.filter-date-group` pelo conteúdo exato:
-```css
-.filter-date-group {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  flex: 1 1 300px;
-  min-width: 260px;
-  width: 100%;
-}
-```
+## Substituir inputs de data por componente React customizado
 
-2) Substituir completamente o bloco `.date-input-wrapper` pelo conteúdo exato:
-```css
-.date-input-wrapper {
-  flex: 1 1 50%;
-  min-width: 120px;
-  max-width: 50%;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-```
+Duas alterações em dois arquivos para resolver definitivamente o problema dos filtros de data invisíveis no iOS Chrome.
 
-3) Substituir completamente o bloco `.date-input-wrapper input` pelo conteúdo exato:
-```css
-.date-input-wrapper input {
-  width: 100%;
-  min-width: 0;
-  height: 44px;
-  padding: 0 0.5rem 0 0.75rem;
-  cursor: pointer;
-  color-scheme: dark light;
-  display: block;
-  box-sizing: border-box;
-}
-```
+### 1. `src/pages/DashboardPage.tsx`
 
-Escopo e garantias:
-- Não alterar nenhum outro arquivo além de `src/pages/Dashboard.css`.
-- Não alterar cores, bordas, espaçamentos, tipografia ou layout fora dos 3 blocos acima.
-- Não remover nem modificar o bloco `.date-input-wrapper input::-webkit-date-and-time-value`.
-- Manter intactas as demais regras (incluindo media queries e estados hover/focus).
+- Alterar import de `import { useState, useMemo } from 'react'` para `import React, { useState, useMemo } from 'react'`
+- Substituir o bloco JSX do `filter-date-group` (linhas 105-122) pelos dois componentes `<DateInputField>`
+- Adicionar o componente `DateInputField` após o componente `KPICard` (após linha 258)
 
-Resultado esperado:
-- O grupo de datas mantém largura mínima estável.
-- Cada input de data preserva área visível e não colapsa.
-- Fim da sobreposição dos campos no iOS Chrome.
+### 2. `src/pages/Dashboard.css`
+
+- Remover os blocos `.date-input-wrapper` (linhas 85-92), `.date-label` (linhas 94-101), `.date-input-wrapper input` (linhas 103-112) e `.date-input-wrapper input::-webkit-date-and-time-value` (linhas 115-118)
+- Remover `.date-input-wrapper input` dos seletores de hover (linha 189) e focus (linha 197)
+- Adicionar no lugar os novos estilos: `.date-field-wrapper`, `.date-field-label`, `.date-field-display`, `.date-field-wrapper:hover .date-field-display`, `.date-field-icon`, `.date-field-value`, `.date-field-placeholder`, `.date-field-input-hidden`
+- Manter `.filter-date-group` inalterado
+- Atualizar o seletor base (linha 44-47) removendo `.date-input-wrapper input`
+
+### Por que funciona
+
+O input real (`opacity: 0`) cobre toda a area clicavel e abre o date picker nativo. O usuario ve o componente customizado (icone de calendario + data formatada ou placeholder "dd/mm/aaaa"), garantindo funcionamento identico em iOS, Android e desktop.
+
+### Detalhes tecnicos
+
+- O seletor base compartilhado (linhas 44-47) sera atualizado para remover `.date-input-wrapper input` ja que o input hidden tem seus proprios estilos
+- Os seletores de hover/focus serao limpos para remover referencias a `.date-input-wrapper input`
+- O `.filter-date-group` permanece intacto com suas propriedades flex atuais
+
