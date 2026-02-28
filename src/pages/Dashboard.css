@@ -37,7 +37,7 @@
   flex-wrap: wrap;
   gap: 0.75rem;
   width: 100%;
-  align-items: center;
+  align-items: flex-end;
 }
 
 /* Base Control Styles - Standard 42px height */
@@ -81,7 +81,6 @@
   width: 100%;
 }
 
-/* Date Field Custom Component */
 .date-field-wrapper {
   flex: 1 1 50%;
   min-width: 120px;
@@ -91,6 +90,7 @@
   gap: 5px;
   cursor: pointer;
   position: relative;
+  justify-content: flex-end;
 }
 
 .date-field-label {
@@ -103,7 +103,7 @@
 }
 
 .date-field-display {
-  height: 44px;
+  height: 42px;
   background-color: #1a1d24;
   border: 1.5px solid #2d333b;
   border-radius: 10px;
