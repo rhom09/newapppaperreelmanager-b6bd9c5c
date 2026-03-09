@@ -158,20 +158,18 @@ export function DashboardPage() {
           <h3>Estoque por Fornecedor (Metragem)</h3>
           {supplierStock.length > 0 ? (
             <div className="chart-wrapper" style={{ height: '300px' }}>
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100%" minWidth={320}>
                 <BarChart
                   data={supplierStock}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
                   style={{ outline: 'none' }}
                 >
                   <XAxis
                     dataKey="name"
                     stroke="var(--text-secondary)"
-                    tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
+                    tick={{ fill: 'var(--text-secondary)', fontSize: 11 }}
                     interval={0}
-                    angle={window.innerWidth < 768 ? -45 : 0}
-                    textAnchor={window.innerWidth < 768 ? "end" : "middle"}
-                    height={60}
+                    tickFormatter={(value) => value.length > 8 ? value.substring(0, 8) + '...' : value}
                   />
                   <YAxis
                     stroke="var(--text-secondary)"
@@ -201,7 +199,7 @@ export function DashboardPage() {
           <h3>Últimas Entradas (NFs)</h3>
           {lastEntries.length > 0 ? (
             <div className="table-responsive">
-              <table className="data-table">
+              <table className="data-table" style={{ minWidth: '400px' }}>
                 <thead>
                   <tr>
                     <th>Nº NF</th>

@@ -5,6 +5,9 @@
   gap: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .page-header.dashboard-header {
@@ -371,6 +374,8 @@
 .chart-wrapper {
   height: 300px;
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .empty-state-mini {
