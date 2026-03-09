@@ -156,17 +156,17 @@ export function NfHistoryPage() {
                                         </div>
                                         <div className="stat">
                                             <label>Peso</label>
-                                            <span>{nf.totalGrossWeight}kg</span>
+                                            <span>{nf.totalGrossWeight.toLocaleString('pt-BR')}kg</span>
                                         </div>
                                         <div className="stat">
                                             <label>Metragem</label>
-                                            <span>{nf.totalLinearMeters}m</span>
+                                            <span>{nf.totalLinearMeters.toLocaleString('pt-BR')}m</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="card-footer">
-                                    <Link to={`/estoque?search=${nf.number}`} className="btn-secondary full-width text-center">
-                                        Ver Bobinas
+                                    <Link to={`/estoque?fornecedor=${nf.supplierId}&search=${nf.number}`} className="btn btn-secondary full-width">
+                                        <Package size={16} /> Ver Bobinas
                                     </Link>
                                 </div>
                             </div>

@@ -187,11 +187,14 @@ export function InventoryPage() {
                       {getStatusBadge(reel.status)}
                     </div>
                     <div className="mc-body">
-                      <p><span>NF:</span> {reel.nfNumber}</p>
-                      <p><span>Fornecedor:</span> {supplier?.prefix}</p>
-                      <p><span>Cód. Cliente:</span> {reel.clientCode}</p>
+                      <p><span>NF</span> {reel.nfNumber}</p>
+                      <p><span>Fornecedor</span> {supplier?.prefix}</p>
+                      <p className="full-width"><span>Cód. Cliente</span> {reel.clientCode}</p>
                       <div className="mc-meters">
-                        <span>Metragem: {reel.remainingMeters} / {reel.linearMeters} m</span>
+                        <div className="mc-meters-label">
+                          <span>Metragem Restante</span>
+                          <strong>{reel.remainingMeters} / {reel.linearMeters} m</strong>
+                        </div>
                         <div className="meter-bar-bg">
                           <div
                             className="meter-bar-fill"
@@ -204,10 +207,10 @@ export function InventoryPage() {
                       </div>
                     </div>
                     <div className="mc-footer">
-                      <button className="btn btn-secondary btn-sm" style={{ flex: 1 }} onClick={() => setEditingReel(reel)}>
-                        <Edit2 size={16} /> Editar
+                      <button className="btn btn-secondary" onClick={() => setEditingReel(reel)}>
+                        <Edit2 size={16} /> Status
                       </button>
-                      <button className="btn btn-secondary btn-sm delete-btn" style={{ flex: 1 }} onClick={() => handleDeleteReel(reel)}>
+                      <button className="btn btn-secondary delete-btn" onClick={() => handleDeleteReel(reel)}>
                         <Trash2 size={16} /> Excluir
                       </button>
                     </div>

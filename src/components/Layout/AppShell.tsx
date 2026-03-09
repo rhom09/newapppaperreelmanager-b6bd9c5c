@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
+import { BottomNav } from './BottomNav';
 import './Layout.css';
 
 interface AppShellProps {
@@ -13,6 +14,7 @@ export function AppShell({ children }: AppShellProps) {
             <main className="app-main">
                 {children}
             </main>
+            <BottomNav />
         </div>
     );
 }
