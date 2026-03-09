@@ -155,7 +155,8 @@
     height: 64px;
     background-color: var(--bg-surface);
     border-top: 1px solid var(--border);
-    display: none; /* Default hidden */
+    display: none;
+    /* Default hidden */
     justify-content: space-around;
     align-items: center;
     z-index: 45;
@@ -193,7 +194,8 @@
     }
 
     .app-main {
-        padding-bottom: 80px; /* Space for bottom nav */
+        padding-bottom: 80px;
+        /* Space for bottom nav */
     }
 
     .mobile-menu-btn {
@@ -201,4 +203,56 @@
         left: unset;
         right: 1rem;
     }
+}
+
+/* Loading & Error Screens */
+.loading-screen,
+.error-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-primary);
+    z-index: 100;
+    gap: 1.5rem;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 4px solid var(--border);
+    border-bottom-color: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.error-card {
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    padding: 2.5rem;
+}
+
+.error-card h2 {
+    color: var(--status-red);
+    margin-bottom: 1rem;
+}
+
+.error-card p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
 }
