@@ -198,10 +198,11 @@
         /* Space for bottom nav */
     }
 
-    .mobile-menu-btn {
-        top: 0.75rem;
-        left: unset;
-        right: 1rem;
+    /* Completely hide sidebar and toggle button on mobile */
+    .sidebar,
+    .mobile-menu-btn,
+    .sidebar-overlay {
+        display: none !important;
     }
 }
 

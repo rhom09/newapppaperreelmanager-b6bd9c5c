@@ -103,6 +103,15 @@ h6 {
   transform: translateY(0);
 }
 
+/* Recharts Global Fix - Remove focus outlines and borders */
+.recharts-wrapper,
+.recharts-surface,
+svg {
+  outline: none !important;
+  border: none !important;
+  user-select: none;
+}
+
 .delete-btn:hover,
 .delete:hover {
   color: var(--status-red) !important;

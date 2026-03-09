@@ -157,17 +157,34 @@ export function DashboardPage() {
         <div className="card chart-card">
           <h3>Estoque por Fornecedor (Metragem)</h3>
           {supplierStock.length > 0 ? (
-            <div className="chart-wrapper">
+            <div className="chart-wrapper" style={{ height: '300px' }}>
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={supplierStock} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
-                  <XAxis type="number" stroke="var(--text-secondary)" />
-                  <YAxis dataKey="name" type="category" width={100} stroke="var(--text-secondary)" tick={{ fill: 'var(--text-secondary)' }} />
+                <BarChart
+                  data={supplierStock}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                  style={{ outline: 'none' }}
+                >
+                  <XAxis
+                    dataKey="name"
+                    stroke="var(--text-secondary)"
+                    tick={{ fill: 'var(--text-secondary)', fontSize: 12 }}
+                    interval={0}
+                    angle={window.innerWidth < 768 ? -45 : 0}
+                    textAnchor={window.innerWidth < 768 ? "end" : "middle"}
+                    height={60}
+                  />
+                  <YAxis
+                    stroke="var(--text-secondary)"
+                    tick={{ fill: 'var(--text-secondary)' }}
+                    tickFormatter={(value) => `${value}m`}
+                  />
                   <Tooltip
-                    contentStyle={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border)', color: 'var(--text-primary)' }}
+                    contentStyle={{ backgroundColor: 'var(--bg-elevated)', borderColor: 'var(--border)', color: 'var(--text-primary)', outline: 'none' }}
                     itemStyle={{ color: 'var(--accent)' }}
+                    cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
                     formatter={(value: number | undefined) => [`${(value || 0).toLocaleString('pt-BR')} m`, 'Metragem']}
                   />
-                  <Bar dataKey="m" radius={[0, 4, 4, 0]}>
+                  <Bar dataKey="m" radius={[4, 4, 0, 0]} style={{ outline: 'none' }}>
                     {supplierStock.map((_, index) => (
                       <Cell key={`cell-${index}`} fill={index === 0 ? 'var(--accent)' : 'var(--accent-hover)'} />
                     ))}
