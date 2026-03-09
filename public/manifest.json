@@ -1,6 +1,6 @@
 {
-    "name": "BobinaFlow",
-    "short_name": "BobinaFlow",
+    "name": "PaperReelManager",
+    "short_name": "ReelManager",
     "description": "Gestão de Bobinas para Gráfica",
     "theme_color": "#ea580c",
     "background_color": "#0d1114",
