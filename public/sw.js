@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bobinaflow-v2';
+const CACHE_NAME = 'bobinaflow-' + '__BUILD_DATE__';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
