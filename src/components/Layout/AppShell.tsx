@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Sidebar } from './Sidebar';
 import { BottomNav } from './BottomNav';
 import { useAppData } from '../../hooks/useAppData';
+import logoUrl from '../../assets/uvpack.jpg';
 import './Layout.css';
 
 interface AppShellProps {
@@ -36,6 +37,15 @@ export function AppShell({ children }: AppShellProps) {
 
     return (
         <div className="app-shell">
+            <header className="mobile-header">
+                <div className="mobile-header-logo">
+                    <img src={logoUrl} alt="UVPack Logo" />
+                    <div className="mobile-header-text">
+                        <strong>UVPack</strong>
+                        <span className="subtitle">Gestão de Bobinas</span>
+                    </div>
+                </div>
+            </header>
             <Sidebar />
             <main className="app-main">
                 {children}
