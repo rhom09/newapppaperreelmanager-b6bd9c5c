@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './', // Use relative paths for GitHub Pages compatibility
   plugins: [
     react(),
     {
