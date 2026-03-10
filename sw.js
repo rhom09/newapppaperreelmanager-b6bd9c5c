@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bobinaflow-' + '1773146428515';
+const CACHE_NAME = 'bobinaflow-' + '1773156792249';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
